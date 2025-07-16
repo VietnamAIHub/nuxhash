@@ -213,9 +213,12 @@ class ExcavatorServer(object):
         """Start running algorithm on device."""
         # Create associated algorithm(s).
         for multialgorithm in algorithm.split('_'):
-            algorithm_instance = self._running_algorithms[multialgorithm]
-            algorithm_instance.set_benchmarking(benchmarking)
-            algorithm_instance.grab()
+           if algorithm in ['daggerhashimoto', 'daggerhashimoto_decred', 'daggerhashimoto_pascal']:
+                algorithm_instance = self._running_algorithms[multialgorithm]
+                algorithm_instance.set_benchmarking(benchmarking)
+                algorithm_instance.grab()
+           else: 
+               continue
 
         # Create worker.
         device_id = self._device_map[device.pci_bus]
